@@ -83,11 +83,13 @@ public class VirtualMachine {
 			register[rx] /= register[ry];
 			break;
 		case Assembler.PUSH:
-			registerStack.push(rx);
+			registerStack.push(register[rx]);
 			break;
 		case Assembler.POP:
-
 			register[rx] = registerStack.pop();
+			break;
+		case Assembler.JMP:
+			programCounter = value;
 			break;
 		case Assembler.JIZ:
 			if (register[0] == 0)
@@ -97,12 +99,8 @@ public class VirtualMachine {
 			if (register[0] > 0)
 				programCounter = value;
 			break;
-
-		case Assembler.JMP:
-			programCounter = value;
-			break;
 		case Assembler.JSR:
-			subroutineStack.push(programCounter + 1);
+			subroutineStack.push(programCounter);
 			programCounter = value;
 			break;
 		case Assembler.RTS:
@@ -127,8 +125,8 @@ public class VirtualMachine {
 	public void writeMemory(int address, int value) {
 		memory[address] = value;
 	}
-	
-	public int readMemory(int address){
+
+	public int readMemory(int address) {
 		return memory[address];
 	}
 

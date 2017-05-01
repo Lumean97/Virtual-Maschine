@@ -62,7 +62,7 @@ public class Assembler {
 						 if(assemblerLine.charAt(j-3) == '(' || assemblerLine.charAt(j-4) == '('){
 							 
 							 //Check if it is fromMem (Last char in Line) or fromMem.
-							 if(i == assemblerLine.length()-1){
+							 if(j == assemblerLine.length()-1){
 								 opCode += 1 << 12;
 							 }else{
 								 opCode += 1 << 13;
