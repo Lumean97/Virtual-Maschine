@@ -15,6 +15,7 @@ public class VirtualMachine {
 	private int[] memory;
 	private Stack<Integer> registerStack = new Stack<>();
 	private Stack<Integer> subroutineStack = new Stack<>();
+	private int[] profiler;
 
 	private int programCounter = 0;
 
@@ -53,7 +54,7 @@ public class VirtualMachine {
 		int ry = (value >> 4) & 0xF;
 		boolean fromMemory = ((value >> 8) & 0x1) == 1;
 		boolean toMemory = ((value >> 9) & 0x1) == 1;
-
+		profiler[programCounter]++;
 		programCounter++;
 		switch (command) {
 		case Assembler.LOAD:
@@ -128,6 +129,16 @@ public class VirtualMachine {
 
 	public int readMemory(int address) {
 		return memory[address];
+	}
+
+	public void initiateProfiler(int numberOfLines) {
+		profiler = new int[numberOfLines];
+	}
+	
+	public void reportProfiler(float calls){
+		for(int i = 0; i<profiler.length; i++){
+			System.out.println("Line " + (i+1) + " has been executed " + profiler[i] +  " times: " + ((((float)profiler[i])/calls)*100f) + "%" );
+		}
 	}
 
 }

@@ -39,6 +39,7 @@ public class Assembler {
 		
 		
 		Scanner fileReader = new Scanner(toAssemble);
+		int numberOfLines = 0;
 		for (int i = 0; fileReader.hasNext(); i++) {
 			
 
@@ -110,8 +111,9 @@ public class Assembler {
 			}
 			vm.writeMemory(i, opCode);
 		System.out.println("line " + i  + " assembled: " + opCode) ;
+		numberOfLines ++;
 		}
-		
+		vm.initiateProfiler(numberOfLines);
 		
 	}
 

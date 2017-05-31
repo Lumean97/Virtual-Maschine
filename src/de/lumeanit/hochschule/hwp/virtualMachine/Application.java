@@ -21,6 +21,7 @@ public static void main(String[] args) {
 			
 			
 		}
+ 		vm.reportProfiler(i);
 		System.out.println(vm.readMemory(1000));
 	} catch (FileNotFoundException e) {
 		// TODO Auto-generated catch block
